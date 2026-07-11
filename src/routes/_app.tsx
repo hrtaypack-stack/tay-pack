@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth, type UserRole } from "@/hooks/use-auth";
+import { useSettings } from "@/hooks/use-settings";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { FullscreenLoader } from "@/components/loaders";
