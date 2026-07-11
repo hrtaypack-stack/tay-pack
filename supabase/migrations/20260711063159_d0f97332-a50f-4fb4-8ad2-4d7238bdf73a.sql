@@ -1,4 +1,3 @@
-
 REVOKE EXECUTE ON FUNCTION public.get_user_role(UUID) FROM PUBLIC, anon;
 REVOKE EXECUTE ON FUNCTION public.is_hr(UUID) FROM PUBLIC, anon;
 REVOKE EXECUTE ON FUNCTION public.is_manager_of(UUID, UUID) FROM PUBLIC, anon;
