@@ -245,6 +245,7 @@ export type Database = {
         Row: {
           company_logo: string | null
           company_name: string
+          footer_text: string
           id: number
           primary_color: string
           secondary_color: string
@@ -254,6 +255,7 @@ export type Database = {
         Insert: {
           company_logo?: string | null
           company_name?: string
+          footer_text?: string
           id?: number
           primary_color?: string
           secondary_color?: string
@@ -263,6 +265,7 @@ export type Database = {
         Update: {
           company_logo?: string | null
           company_name?: string
+          footer_text?: string
           id?: number
           primary_color?: string
           secondary_color?: string
