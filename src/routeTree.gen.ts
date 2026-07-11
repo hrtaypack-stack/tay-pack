@@ -31,6 +31,7 @@ import { Route as AppHrLeaveTypesRouteImport } from './routes/_app.hr.leave-type
 import { Route as AppHrLeaveRequestsRouteImport } from './routes/_app.hr.leave-requests'
 import { Route as AppHrEmployeesRouteImport } from './routes/_app.hr.employees'
 import { Route as AppHrDepartmentsRouteImport } from './routes/_app.hr.departments'
+import { Route as AppHrAuditLogsRouteImport } from './routes/_app.hr.audit-logs'
 import { Route as AppEmployeeNewLeaveRouteImport } from './routes/_app.employee.new-leave'
 import { Route as AppEmployeeMyLeavesRouteImport } from './routes/_app.employee.my-leaves'
 
@@ -143,6 +144,11 @@ const AppHrDepartmentsRoute = AppHrDepartmentsRouteImport.update({
   path: '/departments',
   getParentRoute: () => AppHrRoute,
 } as any)
+const AppHrAuditLogsRoute = AppHrAuditLogsRouteImport.update({
+  id: '/audit-logs',
+  path: '/audit-logs',
+  getParentRoute: () => AppHrRoute,
+} as any)
 const AppEmployeeNewLeaveRoute = AppEmployeeNewLeaveRouteImport.update({
   id: '/new-leave',
   path: '/new-leave',
@@ -167,6 +173,7 @@ export interface FileRoutesByFullPath {
   '/manager': typeof AppManagerRouteWithChildren
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
@@ -189,6 +196,7 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
@@ -216,6 +224,7 @@ export interface FileRoutesById {
   '/_app/manager': typeof AppManagerRouteWithChildren
   '/_app/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/_app/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/_app/hr/departments': typeof AppHrDepartmentsRoute
   '/_app/hr/employees': typeof AppHrEmployeesRoute
   '/_app/hr/leave-requests': typeof AppHrLeaveRequestsRoute
@@ -243,6 +252,7 @@ export interface FileRouteTypes {
     | '/manager'
     | '/employee/my-leaves'
     | '/employee/new-leave'
+    | '/hr/audit-logs'
     | '/hr/departments'
     | '/hr/employees'
     | '/hr/leave-requests'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/employee/my-leaves'
     | '/employee/new-leave'
+    | '/hr/audit-logs'
     | '/hr/departments'
     | '/hr/employees'
     | '/hr/leave-requests'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/_app/manager'
     | '/_app/employee/my-leaves'
     | '/_app/employee/new-leave'
+    | '/_app/hr/audit-logs'
     | '/_app/hr/departments'
     | '/_app/hr/employees'
     | '/_app/hr/leave-requests'
@@ -471,6 +483,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHrDepartmentsRouteImport
       parentRoute: typeof AppHrRoute
     }
+    '/_app/hr/audit-logs': {
+      id: '/_app/hr/audit-logs'
+      path: '/audit-logs'
+      fullPath: '/hr/audit-logs'
+      preLoaderRoute: typeof AppHrAuditLogsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
     '/_app/employee/new-leave': {
       id: '/_app/employee/new-leave'
       path: '/new-leave'
@@ -505,6 +524,7 @@ const AppEmployeeRouteWithChildren = AppEmployeeRoute._addFileChildren(
 )
 
 interface AppHrRouteChildren {
+  AppHrAuditLogsRoute: typeof AppHrAuditLogsRoute
   AppHrDepartmentsRoute: typeof AppHrDepartmentsRoute
   AppHrEmployeesRoute: typeof AppHrEmployeesRoute
   AppHrLeaveRequestsRoute: typeof AppHrLeaveRequestsRoute
@@ -515,6 +535,7 @@ interface AppHrRouteChildren {
 }
 
 const AppHrRouteChildren: AppHrRouteChildren = {
+  AppHrAuditLogsRoute: AppHrAuditLogsRoute,
   AppHrDepartmentsRoute: AppHrDepartmentsRoute,
   AppHrEmployeesRoute: AppHrEmployeesRoute,
   AppHrLeaveRequestsRoute: AppHrLeaveRequestsRoute,
