@@ -6,16 +6,22 @@ export type UserRole = "employee" | "manager" | "hr";
 
 export interface AuthProfile {
   id: string;
+  employeeCode: string | null;
   email: string;
   fullName: string;
   role: UserRole;
+  departmentId: string | null;
+  managerId: string | null;
+  isActive: boolean;
 }
 
 interface AuthContextValue {
   user: User | null;
   session: Session | null;
   profile: AuthProfile | null;
+  profileMissing: boolean;
   loading: boolean;
+  refreshProfile: () => Promise<void>;
   signIn: (email: string, password: string, remember: boolean) => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -23,34 +29,57 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-function deriveProfile(user: User | null): AuthProfile | null {
-  if (!user) return null;
-  const meta = (user.user_metadata ?? {}) as Record<string, unknown>;
-  const appMeta = (user.app_metadata ?? {}) as Record<string, unknown>;
-  const rawRole = (appMeta.role ?? meta.role ?? "employee") as string;
-  const role: UserRole = ["employee", "manager", "hr"].includes(rawRole)
-    ? (rawRole as UserRole)
-    : "employee";
-  const fullName =
-    (meta.full_name as string) ||
-    (meta.name as string) ||
-    (user.email ? user.email.split("@")[0] : "User");
-  return { id: user.id, email: user.email ?? "", fullName, role };
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<AuthProfile | null>(null);
+  const [profileMissing, setProfileMissing] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const loadProfile = async (u: User | null) => {
+    if (!u) {
+      setProfile(null);
+      setProfileMissing(false);
+      return;
+    }
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, employee_code, email, full_name, role, department_id, manager_id, is_active")
+      .eq("id", u.id)
+      .maybeSingle();
+    if (error || !data) {
+      setProfile(null);
+      setProfileMissing(true);
+      return;
+    }
+    setProfileMissing(false);
+    setProfile({
+      id: data.id,
+      employeeCode: data.employee_code,
+      email: data.email,
+      fullName: data.full_name,
+      role: data.role as UserRole,
+      departmentId: data.department_id,
+      managerId: data.manager_id,
+      isActive: data.is_active,
+    });
+  };
+
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, s) => {
       setSession(s);
       setUser(s?.user ?? null);
+      if (event === "SIGNED_OUT") {
+        setProfile(null);
+        setProfileMissing(false);
+      } else {
+        void loadProfile(s?.user ?? null);
+      }
     });
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(async ({ data }) => {
       setSession(data.session);
       setUser(data.session?.user ?? null);
+      await loadProfile(data.session?.user ?? null);
       setLoading(false);
     });
     return () => sub.subscription.unsubscribe();
@@ -59,15 +88,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value: AuthContextValue = {
     user,
     session,
-    profile: deriveProfile(user),
+    profile,
+    profileMissing,
     loading,
-    signIn: async (email, password, remember) => {
+    refreshProfile: () => loadProfile(user),
+    signIn: async (email, password) => {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      if (!remember) {
-        // best-effort: session persists via supabase storage; a full opt-out would
-        // require a separate client instance. Keep default persistence for now.
-      }
     },
     signOut: async () => {
       await supabase.auth.signOut();

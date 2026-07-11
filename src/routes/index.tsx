@@ -7,9 +7,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { loading, profile } = useAuth();
+  const { loading, profile, profileMissing, user } = useAuth();
   if (loading) return <FullscreenLoader />;
-  if (!profile) return <Navigate to="/auth" replace />;
+  if (!user) return <Navigate to="/auth" replace />;
+  if (profileMissing || !profile) return <Navigate to="/employee" replace />;
   const dest =
     profile.role === "hr"
       ? "/hr"
