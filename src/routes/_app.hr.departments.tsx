@@ -215,7 +215,7 @@ function DepartmentDialog({
   const [description, setDescription] = useState("");
   const [isActive, setIsActive] = useState(true);
 
-  useMemo(() => {
+  useEffect(() => {
     if (open) {
       setName(department?.name ?? "");
       setDescription(department?.description ?? "");
