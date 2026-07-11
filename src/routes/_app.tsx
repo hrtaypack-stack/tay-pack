@@ -1,20 +1,51 @@
-import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth, type UserRole } from "@/hooks/use-auth";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { FullscreenLoader } from "@/components/loaders";
+import { Button } from "@/components/ui/button";
+import { AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_app")({
   component: AppLayout,
 });
 
+function NoProfileScreen() {
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const handleSignOut = async () => {
+    await signOut();
+    navigate({ to: "/auth", replace: true });
+  };
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-accent/40 px-4">
+      <div className="w-full max-w-md rounded-2xl bg-card p-8 text-center shadow-[var(--shadow-card)] ring-1 ring-border">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+          <AlertCircle className="h-6 w-6" />
+        </div>
+        <h1 className="mt-5 text-xl font-semibold">No employee profile found</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Your account is authenticated but there is no employee profile linked to it.
+          Please contact HR to complete your setup.
+        </p>
+        <div className="mt-6">
+          <Button onClick={handleSignOut} variant="outline" className="w-full">
+            Sign out
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AppLayout() {
-  const { loading, profile } = useAuth();
+  const { loading, profile, profileMissing, user } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (loading) return <FullscreenLoader />;
-  if (!profile) return <Navigate to="/auth" replace />;
+  if (!user) return <Navigate to="/auth" replace />;
+  if (profileMissing || !profile) return <NoProfileScreen />;
 
   return (
     <div className="min-h-screen bg-accent/30">
