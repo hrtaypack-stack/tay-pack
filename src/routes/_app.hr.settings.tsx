@@ -20,6 +20,7 @@ type Settings = {
   primary_color: string;
   secondary_color: string;
   welcome_text: string;
+  footer_text: string;
 };
 
 function SettingsPage() {
