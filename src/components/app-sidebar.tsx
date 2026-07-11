@@ -10,6 +10,8 @@ import {
   CalendarDays,
   BarChart3,
   Settings,
+  ClipboardList,
+  ScrollText,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { UserRole } from "@/hooks/use-auth";
@@ -34,7 +36,9 @@ const NAV: Record<UserRole, NavItem[]> = {
     { title: "Employees", url: "/hr/employees", icon: Users },
     { title: "Departments", url: "/hr/departments", icon: Building2 },
     { title: "Leave Types", url: "/hr/leave-types", icon: CalendarDays },
+    { title: "Leave Requests", url: "/hr/leave-requests", icon: ClipboardList },
     { title: "Reports", url: "/hr/reports", icon: BarChart3 },
+    { title: "Audit Logs", url: "/hr/audit-logs", icon: ScrollText },
     { title: "Settings", url: "/hr/settings", icon: Settings },
   ],
 };
