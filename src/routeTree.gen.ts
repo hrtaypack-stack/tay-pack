@@ -28,6 +28,7 @@ import { Route as AppManagerHistoryRouteImport } from './routes/_app.manager.his
 import { Route as AppHrSettingsRouteImport } from './routes/_app.hr.settings'
 import { Route as AppHrReportsRouteImport } from './routes/_app.hr.reports'
 import { Route as AppHrLeaveTypesRouteImport } from './routes/_app.hr.leave-types'
+import { Route as AppHrLeaveRequestsRouteImport } from './routes/_app.hr.leave-requests'
 import { Route as AppHrEmployeesRouteImport } from './routes/_app.hr.employees'
 import { Route as AppHrDepartmentsRouteImport } from './routes/_app.hr.departments'
 import { Route as AppEmployeeNewLeaveRouteImport } from './routes/_app.employee.new-leave'
@@ -127,6 +128,11 @@ const AppHrLeaveTypesRoute = AppHrLeaveTypesRouteImport.update({
   path: '/leave-types',
   getParentRoute: () => AppHrRoute,
 } as any)
+const AppHrLeaveRequestsRoute = AppHrLeaveRequestsRouteImport.update({
+  id: '/leave-requests',
+  path: '/leave-requests',
+  getParentRoute: () => AppHrRoute,
+} as any)
 const AppHrEmployeesRoute = AppHrEmployeesRouteImport.update({
   id: '/employees',
   path: '/employees',
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
+  '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
@@ -184,6 +191,7 @@ export interface FileRoutesByTo {
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
+  '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/_app/hr/departments': typeof AppHrDepartmentsRoute
   '/_app/hr/employees': typeof AppHrEmployeesRoute
+  '/_app/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/_app/hr/leave-types': typeof AppHrLeaveTypesRoute
   '/_app/hr/reports': typeof AppHrReportsRoute
   '/_app/hr/settings': typeof AppHrSettingsRoute
@@ -236,6 +245,7 @@ export interface FileRouteTypes {
     | '/employee/new-leave'
     | '/hr/departments'
     | '/hr/employees'
+    | '/hr/leave-requests'
     | '/hr/leave-types'
     | '/hr/reports'
     | '/hr/settings'
@@ -257,6 +267,7 @@ export interface FileRouteTypes {
     | '/employee/new-leave'
     | '/hr/departments'
     | '/hr/employees'
+    | '/hr/leave-requests'
     | '/hr/leave-types'
     | '/hr/reports'
     | '/hr/settings'
@@ -282,6 +293,7 @@ export interface FileRouteTypes {
     | '/_app/employee/new-leave'
     | '/_app/hr/departments'
     | '/_app/hr/employees'
+    | '/_app/hr/leave-requests'
     | '/_app/hr/leave-types'
     | '/_app/hr/reports'
     | '/_app/hr/settings'
@@ -438,6 +450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHrLeaveTypesRouteImport
       parentRoute: typeof AppHrRoute
     }
+    '/_app/hr/leave-requests': {
+      id: '/_app/hr/leave-requests'
+      path: '/leave-requests'
+      fullPath: '/hr/leave-requests'
+      preLoaderRoute: typeof AppHrLeaveRequestsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
     '/_app/hr/employees': {
       id: '/_app/hr/employees'
       path: '/employees'
@@ -488,6 +507,7 @@ const AppEmployeeRouteWithChildren = AppEmployeeRoute._addFileChildren(
 interface AppHrRouteChildren {
   AppHrDepartmentsRoute: typeof AppHrDepartmentsRoute
   AppHrEmployeesRoute: typeof AppHrEmployeesRoute
+  AppHrLeaveRequestsRoute: typeof AppHrLeaveRequestsRoute
   AppHrLeaveTypesRoute: typeof AppHrLeaveTypesRoute
   AppHrReportsRoute: typeof AppHrReportsRoute
   AppHrSettingsRoute: typeof AppHrSettingsRoute
@@ -497,6 +517,7 @@ interface AppHrRouteChildren {
 const AppHrRouteChildren: AppHrRouteChildren = {
   AppHrDepartmentsRoute: AppHrDepartmentsRoute,
   AppHrEmployeesRoute: AppHrEmployeesRoute,
+  AppHrLeaveRequestsRoute: AppHrLeaveRequestsRoute,
   AppHrLeaveTypesRoute: AppHrLeaveTypesRoute,
   AppHrReportsRoute: AppHrReportsRoute,
   AppHrSettingsRoute: AppHrSettingsRoute,
