@@ -143,6 +143,15 @@ function SettingsPage() {
               rows={3}
             />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="footer">Footer text</Label>
+            <Input
+              id="footer"
+              value={footerText}
+              onChange={(e) => setFooterText(e.target.value)}
+              placeholder="© Your Company"
+            />
+          </div>
           <div className="flex justify-end">
             <Button onClick={() => saveMut.mutate()} disabled={saveMut.isPending}>
               {saveMut.isPending ? "Saving..." : "Save changes"}
