@@ -30,6 +30,7 @@ function SettingsPage() {
   const [primaryColor, setPrimaryColor] = useState("#3b82f6");
   const [secondaryColor, setSecondaryColor] = useState("#ffffff");
   const [welcomeText, setWelcomeText] = useState("");
+  const [footerText, setFooterText] = useState("");
 
   const { data, isLoading } = useQuery({
     queryKey: ["settings"],
@@ -47,6 +48,7 @@ function SettingsPage() {
       setPrimaryColor(data.primary_color);
       setSecondaryColor(data.secondary_color);
       setWelcomeText(data.welcome_text);
+      setFooterText(data.footer_text ?? "");
     }
   }, [data]);
 
@@ -61,6 +63,7 @@ function SettingsPage() {
           primary_color: primaryColor,
           secondary_color: secondaryColor,
           welcome_text: welcomeText,
+          footer_text: footerText,
         })
         .eq("id", data.id);
       if (error) throw error;
@@ -68,6 +71,7 @@ function SettingsPage() {
     onSuccess: () => {
       toast.success("Settings saved");
       qc.invalidateQueries({ queryKey: ["settings"] });
+      qc.invalidateQueries({ queryKey: ["app-settings"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
