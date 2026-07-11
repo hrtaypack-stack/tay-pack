@@ -31,6 +31,7 @@ function NewLeavePage() {
   const [endDate, setEndDate] = useState("");
   const [reason, setReason] = useState("");
 
+  // جلب أنواع الإجازات المفعلة من قاعدة البيانات
   const { data: types = [] } = useQuery({
     queryKey: ["leave_types_active"],
     queryFn: async () => {
@@ -44,34 +45,41 @@ function NewLeavePage() {
     },
   });
 
+  // حساب عدد الأيام بشكل تلقائي
   const days = useMemo(() => calcDays(startDate, endDate), [startDate, endDate]);
 
+  // دالة إرسال الطلب لـ Supabase
   const submitMut = useMutation({
     mutationFn: async () => {
-      if (!profile) throw new Error("Not signed in");
-      if (!leaveTypeId) throw new Error("Please select a leave type");
-      if (!startDate || !endDate) throw new Error("Please select start and end dates");
-      if (days <= 0) throw new Error("End date must be on or after start date");
+      if (!profile) throw new Error("لم يتم العثور على بيانات المستخدم، يرجى إعادة تسجيل الدخول.");
+      if (!leaveTypeId) throw new Error("من فضلك اختر نوع الإجازة.");
+      if (!startDate || !endDate) throw new Error("من فضلك حدد تاريخ البداية والنهاية.");
+      if (days <= 0) throw new Error("تاريخ النهاية يجب أن يكون مساوياً أو بعد تاريخ البداية.");
+
       const now = new Date().toISOString();
+      
       const { error } = await supabase.from("leave_requests").insert({
         employee_id: profile.id,
         leave_type_id: leaveTypeId,
-        start_date: startDate,
+        start_date: startDate, // صيغة YYYY-MM-DD مقبولة لعمود date في PostgreSQL
         end_date: endDate,
-        days,
+        days: days,
         reason: reason.trim() || null,
-        status: LEAVE_STATUS.PENDING_MANAGER,
+        status: LEAVE_STATUS.PENDING_MANAGER, // المرحلة الأولى: معلق بانتظار المدير
         created_at: now,
         updated_at: now,
       });
+
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success("Leave request submitted");
+      toast.success("تم تقديم طلب الإجازة بنجاح وهو قيد المراجعة الآن.");
       qc.invalidateQueries({ queryKey: ["my_leave_requests"] });
       navigate({ to: "/employee/my-leaves" });
     },
-    onError: (e: Error) => toast.error(e.message),
+    onError: (e: Error) => {
+      toast.error(`فشل التقديم: ${e.message}`);
+    },
   });
 
   const handleSubmit = (e: FormEvent) => {
