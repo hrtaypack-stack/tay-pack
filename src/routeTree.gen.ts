@@ -9,10 +9,40 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
+import { Route as SessionExpiredRouteImport } from './routes/session-expired'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as R500RouteImport } from './routes/500'
+import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppManagerRouteImport } from './routes/_app.manager'
+import { Route as AppHrRouteImport } from './routes/_app.hr'
+import { Route as AppEmployeeRouteImport } from './routes/_app.employee'
+import { Route as AppManagerIndexRouteImport } from './routes/_app.manager.index'
+import { Route as AppHrIndexRouteImport } from './routes/_app.hr.index'
+import { Route as AppEmployeeIndexRouteImport } from './routes/_app.employee.index'
+import { Route as AppManagerPendingRouteImport } from './routes/_app.manager.pending'
+import { Route as AppManagerHistoryRouteImport } from './routes/_app.manager.history'
+import { Route as AppHrSettingsRouteImport } from './routes/_app.hr.settings'
+import { Route as AppHrReportsRouteImport } from './routes/_app.hr.reports'
+import { Route as AppHrLeaveTypesRouteImport } from './routes/_app.hr.leave-types'
+import { Route as AppHrEmployeesRouteImport } from './routes/_app.hr.employees'
+import { Route as AppHrDepartmentsRouteImport } from './routes/_app.hr.departments'
+import { Route as AppEmployeeNewLeaveRouteImport } from './routes/_app.employee.new-leave'
+import { Route as AppEmployeeMyLeavesRouteImport } from './routes/_app.employee.my-leaves'
 
+const UnauthorizedRoute = UnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionExpiredRoute = SessionExpiredRouteImport.update({
+  id: '/session-expired',
+  path: '/session-expired',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -23,44 +53,272 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R500Route = R500RouteImport.update({
+  id: '/500',
+  path: '/500',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R403Route = R403RouteImport.update({
+  id: '/403',
+  path: '/403',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppManagerRoute = AppManagerRouteImport.update({
+  id: '/manager',
+  path: '/manager',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHrRoute = AppHrRouteImport.update({
+  id: '/hr',
+  path: '/hr',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEmployeeRoute = AppEmployeeRouteImport.update({
+  id: '/employee',
+  path: '/employee',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppManagerIndexRoute = AppManagerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppManagerRoute,
+} as any)
+const AppHrIndexRoute = AppHrIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppEmployeeIndexRoute = AppEmployeeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
+const AppManagerPendingRoute = AppManagerPendingRouteImport.update({
+  id: '/pending',
+  path: '/pending',
+  getParentRoute: () => AppManagerRoute,
+} as any)
+const AppManagerHistoryRoute = AppManagerHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppManagerRoute,
+} as any)
+const AppHrSettingsRoute = AppHrSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppHrReportsRoute = AppHrReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppHrLeaveTypesRoute = AppHrLeaveTypesRouteImport.update({
+  id: '/leave-types',
+  path: '/leave-types',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppHrEmployeesRoute = AppHrEmployeesRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppHrDepartmentsRoute = AppHrDepartmentsRouteImport.update({
+  id: '/departments',
+  path: '/departments',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppEmployeeNewLeaveRoute = AppEmployeeNewLeaveRouteImport.update({
+  id: '/new-leave',
+  path: '/new-leave',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
+const AppEmployeeMyLeavesRoute = AppEmployeeMyLeavesRouteImport.update({
+  id: '/my-leaves',
+  path: '/my-leaves',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/403': typeof R403Route
+  '/500': typeof R500Route
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/session-expired': typeof SessionExpiredRoute
+  '/unauthorized': typeof UnauthorizedRoute
+  '/employee': typeof AppEmployeeRouteWithChildren
+  '/hr': typeof AppHrRouteWithChildren
+  '/manager': typeof AppManagerRouteWithChildren
+  '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
+  '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/hr/departments': typeof AppHrDepartmentsRoute
+  '/hr/employees': typeof AppHrEmployeesRoute
+  '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/reports': typeof AppHrReportsRoute
+  '/hr/settings': typeof AppHrSettingsRoute
+  '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/pending': typeof AppManagerPendingRoute
+  '/employee/': typeof AppEmployeeIndexRoute
+  '/hr/': typeof AppHrIndexRoute
+  '/manager/': typeof AppManagerIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/403': typeof R403Route
+  '/500': typeof R500Route
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/session-expired': typeof SessionExpiredRoute
+  '/unauthorized': typeof UnauthorizedRoute
+  '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
+  '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/hr/departments': typeof AppHrDepartmentsRoute
+  '/hr/employees': typeof AppHrEmployeesRoute
+  '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/reports': typeof AppHrReportsRoute
+  '/hr/settings': typeof AppHrSettingsRoute
+  '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/pending': typeof AppManagerPendingRoute
+  '/employee': typeof AppEmployeeIndexRoute
+  '/hr': typeof AppHrIndexRoute
+  '/manager': typeof AppManagerIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/403': typeof R403Route
+  '/500': typeof R500Route
+  '/_app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/session-expired': typeof SessionExpiredRoute
+  '/unauthorized': typeof UnauthorizedRoute
+  '/_app/employee': typeof AppEmployeeRouteWithChildren
+  '/_app/hr': typeof AppHrRouteWithChildren
+  '/_app/manager': typeof AppManagerRouteWithChildren
+  '/_app/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
+  '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/_app/hr/departments': typeof AppHrDepartmentsRoute
+  '/_app/hr/employees': typeof AppHrEmployeesRoute
+  '/_app/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/_app/hr/reports': typeof AppHrReportsRoute
+  '/_app/hr/settings': typeof AppHrSettingsRoute
+  '/_app/manager/history': typeof AppManagerHistoryRoute
+  '/_app/manager/pending': typeof AppManagerPendingRoute
+  '/_app/employee/': typeof AppEmployeeIndexRoute
+  '/_app/hr/': typeof AppHrIndexRoute
+  '/_app/manager/': typeof AppManagerIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/reset-password'
+  fullPaths:
+    | '/'
+    | '/403'
+    | '/500'
+    | '/auth'
+    | '/reset-password'
+    | '/session-expired'
+    | '/unauthorized'
+    | '/employee'
+    | '/hr'
+    | '/manager'
+    | '/employee/my-leaves'
+    | '/employee/new-leave'
+    | '/hr/departments'
+    | '/hr/employees'
+    | '/hr/leave-types'
+    | '/hr/reports'
+    | '/hr/settings'
+    | '/manager/history'
+    | '/manager/pending'
+    | '/employee/'
+    | '/hr/'
+    | '/manager/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password'
-  id: '__root__' | '/' | '/auth' | '/reset-password'
+  to:
+    | '/'
+    | '/403'
+    | '/500'
+    | '/auth'
+    | '/reset-password'
+    | '/session-expired'
+    | '/unauthorized'
+    | '/employee/my-leaves'
+    | '/employee/new-leave'
+    | '/hr/departments'
+    | '/hr/employees'
+    | '/hr/leave-types'
+    | '/hr/reports'
+    | '/hr/settings'
+    | '/manager/history'
+    | '/manager/pending'
+    | '/employee'
+    | '/hr'
+    | '/manager'
+  id:
+    | '__root__'
+    | '/'
+    | '/403'
+    | '/500'
+    | '/_app'
+    | '/auth'
+    | '/reset-password'
+    | '/session-expired'
+    | '/unauthorized'
+    | '/_app/employee'
+    | '/_app/hr'
+    | '/_app/manager'
+    | '/_app/employee/my-leaves'
+    | '/_app/employee/new-leave'
+    | '/_app/hr/departments'
+    | '/_app/hr/employees'
+    | '/_app/hr/leave-types'
+    | '/_app/hr/reports'
+    | '/_app/hr/settings'
+    | '/_app/manager/history'
+    | '/_app/manager/pending'
+    | '/_app/employee/'
+    | '/_app/hr/'
+    | '/_app/manager/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R403Route: typeof R403Route
+  R500Route: typeof R500Route
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SessionExpiredRoute: typeof SessionExpiredRoute
+  UnauthorizedRoute: typeof UnauthorizedRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unauthorized': {
+      id: '/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof UnauthorizedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/session-expired': {
+      id: '/session-expired'
+      path: '/session-expired'
+      fullPath: '/session-expired'
+      preLoaderRoute: typeof SessionExpiredRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -75,6 +333,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/500': {
+      id: '/500'
+      path: '/500'
+      fullPath: '/500'
+      preLoaderRoute: typeof R500RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/403': {
+      id: '/403'
+      path: '/403'
+      fullPath: '/403'
+      preLoaderRoute: typeof R403RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,13 +361,189 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/manager': {
+      id: '/_app/manager'
+      path: '/manager'
+      fullPath: '/manager'
+      preLoaderRoute: typeof AppManagerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/hr': {
+      id: '/_app/hr'
+      path: '/hr'
+      fullPath: '/hr'
+      preLoaderRoute: typeof AppHrRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/employee': {
+      id: '/_app/employee'
+      path: '/employee'
+      fullPath: '/employee'
+      preLoaderRoute: typeof AppEmployeeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/manager/': {
+      id: '/_app/manager/'
+      path: '/'
+      fullPath: '/manager/'
+      preLoaderRoute: typeof AppManagerIndexRouteImport
+      parentRoute: typeof AppManagerRoute
+    }
+    '/_app/hr/': {
+      id: '/_app/hr/'
+      path: '/'
+      fullPath: '/hr/'
+      preLoaderRoute: typeof AppHrIndexRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/employee/': {
+      id: '/_app/employee/'
+      path: '/'
+      fullPath: '/employee/'
+      preLoaderRoute: typeof AppEmployeeIndexRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
+    '/_app/manager/pending': {
+      id: '/_app/manager/pending'
+      path: '/pending'
+      fullPath: '/manager/pending'
+      preLoaderRoute: typeof AppManagerPendingRouteImport
+      parentRoute: typeof AppManagerRoute
+    }
+    '/_app/manager/history': {
+      id: '/_app/manager/history'
+      path: '/history'
+      fullPath: '/manager/history'
+      preLoaderRoute: typeof AppManagerHistoryRouteImport
+      parentRoute: typeof AppManagerRoute
+    }
+    '/_app/hr/settings': {
+      id: '/_app/hr/settings'
+      path: '/settings'
+      fullPath: '/hr/settings'
+      preLoaderRoute: typeof AppHrSettingsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/hr/reports': {
+      id: '/_app/hr/reports'
+      path: '/reports'
+      fullPath: '/hr/reports'
+      preLoaderRoute: typeof AppHrReportsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/hr/leave-types': {
+      id: '/_app/hr/leave-types'
+      path: '/leave-types'
+      fullPath: '/hr/leave-types'
+      preLoaderRoute: typeof AppHrLeaveTypesRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/hr/employees': {
+      id: '/_app/hr/employees'
+      path: '/employees'
+      fullPath: '/hr/employees'
+      preLoaderRoute: typeof AppHrEmployeesRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/hr/departments': {
+      id: '/_app/hr/departments'
+      path: '/departments'
+      fullPath: '/hr/departments'
+      preLoaderRoute: typeof AppHrDepartmentsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/employee/new-leave': {
+      id: '/_app/employee/new-leave'
+      path: '/new-leave'
+      fullPath: '/employee/new-leave'
+      preLoaderRoute: typeof AppEmployeeNewLeaveRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
+    '/_app/employee/my-leaves': {
+      id: '/_app/employee/my-leaves'
+      path: '/my-leaves'
+      fullPath: '/employee/my-leaves'
+      preLoaderRoute: typeof AppEmployeeMyLeavesRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
   }
 }
 
+interface AppEmployeeRouteChildren {
+  AppEmployeeMyLeavesRoute: typeof AppEmployeeMyLeavesRoute
+  AppEmployeeNewLeaveRoute: typeof AppEmployeeNewLeaveRoute
+  AppEmployeeIndexRoute: typeof AppEmployeeIndexRoute
+}
+
+const AppEmployeeRouteChildren: AppEmployeeRouteChildren = {
+  AppEmployeeMyLeavesRoute: AppEmployeeMyLeavesRoute,
+  AppEmployeeNewLeaveRoute: AppEmployeeNewLeaveRoute,
+  AppEmployeeIndexRoute: AppEmployeeIndexRoute,
+}
+
+const AppEmployeeRouteWithChildren = AppEmployeeRoute._addFileChildren(
+  AppEmployeeRouteChildren,
+)
+
+interface AppHrRouteChildren {
+  AppHrDepartmentsRoute: typeof AppHrDepartmentsRoute
+  AppHrEmployeesRoute: typeof AppHrEmployeesRoute
+  AppHrLeaveTypesRoute: typeof AppHrLeaveTypesRoute
+  AppHrReportsRoute: typeof AppHrReportsRoute
+  AppHrSettingsRoute: typeof AppHrSettingsRoute
+  AppHrIndexRoute: typeof AppHrIndexRoute
+}
+
+const AppHrRouteChildren: AppHrRouteChildren = {
+  AppHrDepartmentsRoute: AppHrDepartmentsRoute,
+  AppHrEmployeesRoute: AppHrEmployeesRoute,
+  AppHrLeaveTypesRoute: AppHrLeaveTypesRoute,
+  AppHrReportsRoute: AppHrReportsRoute,
+  AppHrSettingsRoute: AppHrSettingsRoute,
+  AppHrIndexRoute: AppHrIndexRoute,
+}
+
+const AppHrRouteWithChildren = AppHrRoute._addFileChildren(AppHrRouteChildren)
+
+interface AppManagerRouteChildren {
+  AppManagerHistoryRoute: typeof AppManagerHistoryRoute
+  AppManagerPendingRoute: typeof AppManagerPendingRoute
+  AppManagerIndexRoute: typeof AppManagerIndexRoute
+}
+
+const AppManagerRouteChildren: AppManagerRouteChildren = {
+  AppManagerHistoryRoute: AppManagerHistoryRoute,
+  AppManagerPendingRoute: AppManagerPendingRoute,
+  AppManagerIndexRoute: AppManagerIndexRoute,
+}
+
+const AppManagerRouteWithChildren = AppManagerRoute._addFileChildren(
+  AppManagerRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppEmployeeRoute: typeof AppEmployeeRouteWithChildren
+  AppHrRoute: typeof AppHrRouteWithChildren
+  AppManagerRoute: typeof AppManagerRouteWithChildren
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppEmployeeRoute: AppEmployeeRouteWithChildren,
+  AppHrRoute: AppHrRouteWithChildren,
+  AppManagerRoute: AppManagerRouteWithChildren,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R403Route: R403Route,
+  R500Route: R500Route,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SessionExpiredRoute: SessionExpiredRoute,
+  UnauthorizedRoute: UnauthorizedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

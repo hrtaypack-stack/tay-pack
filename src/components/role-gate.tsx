@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
+import { Outlet, Navigate } from "@tanstack/react-router";
 import { useAuth, type UserRole } from "@/hooks/use-auth";
 import { ErrorState } from "@/components/error-state";
 

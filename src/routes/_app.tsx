@@ -1,5 +1,5 @@
-import { createFileRoute, Outlet, Navigate, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { createFileRoute, Outlet, Navigate } from "@tanstack/react-router";
+import { useState } from "react";
 import { useAuth, type UserRole } from "@/hooks/use-auth";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
@@ -12,11 +12,6 @@ export const Route = createFileRoute("/_app")({
 function AppLayout() {
   const { loading, profile } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Close mobile drawer on route change is handled by onNavigate callback in sidebar
-  }, []);
 
   if (loading) return <FullscreenLoader />;
   if (!profile) return <Navigate to="/auth" replace />;
@@ -43,26 +38,11 @@ function AppLayout() {
           />
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
             <div className="mx-auto w-full max-w-7xl">
-              <RoleGuard role={profile.role as UserRole} onDeny={() => navigate({ to: "/403" })}>
-                <Outlet />
-              </RoleGuard>
+              <Outlet />
             </div>
           </main>
         </div>
       </div>
     </div>
   );
-}
-
-function RoleGuard({
-  role,
-  children,
-}: {
-  role: UserRole;
-  onDeny: () => void;
-  children: React.ReactNode;
-}) {
-  // Reserved for per-section role checks — currently each area checks its own prefix.
-  void role;
-  return <>{children}</>;
 }
