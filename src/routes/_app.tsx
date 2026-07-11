@@ -42,6 +42,7 @@ function NoProfileScreen() {
 
 function AppLayout() {
   const { loading, profile, profileMissing, user } = useAuth();
+  const settings = useSettings();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (loading) return <FullscreenLoader />;
@@ -73,6 +74,9 @@ function AppLayout() {
               <Outlet />
             </div>
           </main>
+          <footer className="border-t bg-background/60 px-6 py-4 text-center text-xs text-muted-foreground">
+            {settings.footer_text}
+          </footer>
         </div>
       </div>
     </div>
