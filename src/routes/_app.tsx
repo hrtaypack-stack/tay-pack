@@ -1,6 +1,7 @@
 import { createFileRoute, Outlet, Navigate, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuth, type UserRole } from "@/hooks/use-auth";
+import { useSettings } from "@/hooks/use-settings";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/app-header";
 import { FullscreenLoader } from "@/components/loaders";
@@ -41,6 +42,7 @@ function NoProfileScreen() {
 
 function AppLayout() {
   const { loading, profile, profileMissing, user } = useAuth();
+  const settings = useSettings();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (loading) return <FullscreenLoader />;
@@ -72,6 +74,9 @@ function AppLayout() {
               <Outlet />
             </div>
           </main>
+          <footer className="border-t bg-background/60 px-6 py-4 text-center text-xs text-muted-foreground">
+            {settings.footer_text}
+          </footer>
         </div>
       </div>
     </div>
