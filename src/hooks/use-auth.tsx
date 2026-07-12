@@ -43,42 +43,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // 1. محاولة جلب البروفايل الحالي للمستخدم
-    let { data, error } = await supabase
+    const { data, error } = await supabase
       .from("profiles")
       .select("id, employee_code, email, full_name, role, department_id, manager_id, is_active")
       .eq("id", u.id)
       .maybeSingle();
 
-    // 2. إذا لم يتم العثور على بروفايل (الحساب جديد تماماً)
-    // نقوم بإنشاء بروفايل تلقائي فوراً لفتح الحساب دون اللجوء للـ HR
-    if (!data && !error) {
-      const fallbackName = u.email?.split("@")[0] || "New User";
-      
-      const { data: insertedData, error: insertError } = await supabase
-        .from("profiles")
-        .insert({
-          id: u.id,
-          email: u.email!,
-          full_name: fallbackName,
-          role: "employee", // يمكنك تغييرها هنا إلى "hr" مؤقتاً لتفعيل كل الصلاحيات في التطبيق
-          is_active: true,
-          employee_code: "EMP-" + Math.floor(1000 + Math.random() * 9000) // كود عشوائي مؤقت
-        })
-        .select()
-        .single();
-
-      if (!insertError && insertedData) {
-        data = insertedData;
-      }
-    }
-
-    // 3. التحقق الأخير لإرجاع الخطأ إذا فشل البناء تماماً
-    if (error || !data) {
+    if (error) {
+      console.error("[auth] failed to load profile:", error);
       setProfile(null);
       setProfileMissing(true);
       return;
     }
+
+    if (!data) {
+      setProfile(null);
+      setProfileMissing(true);
+      return;
+    }
+
 
     setProfileMissing(false);
     setProfile({
