@@ -14,7 +14,7 @@ export type AppSettings = {
 
 const DEFAULTS: AppSettings = {
   id: 1,
-  company_name: "Leave Management System",
+  company_name: "Tay pack",
   company_logo: null,
   primary_color: "#3b82f6",
   secondary_color: "#ffffff",
