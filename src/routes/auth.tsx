@@ -13,7 +13,26 @@ import { FullscreenLoader } from "@/components/loaders";
 
 export const Route = createFileRoute("/auth")({
   component: AuthPage,
+  head: () => ({
+    meta: [
+      { title: "Sign in — Leave Management System" },
+      {
+        name: "description",
+        content:
+          "Sign in to your Leave Management System account to submit time-off requests, review approvals, and manage team leave.",
+      },
+      { property: "og:title", content: "Sign in — Leave Management System" },
+      {
+        property: "og:description",
+        content:
+          "Sign in to your Leave Management System account to submit time-off requests, review approvals, and manage team leave.",
+      },
+      { property: "og:url", content: "https://tay-pack.lovable.app/auth" },
+    ],
+    links: [{ rel: "canonical", href: "https://tay-pack.lovable.app/auth" }],
+  }),
 });
+
 
 function AuthPage() {
   const { loading, profile } = useAuth();
@@ -25,14 +44,14 @@ function AuthPage() {
 function AuthLayout() {
   const [mode, setMode] = useState<"login" | "forgot">("login");
   return (
-    <div className="grid min-h-screen bg-accent/30 lg:grid-cols-2">
+    <main className="grid min-h-screen bg-accent/30 lg:grid-cols-2">
       {/* Left brand panel */}
       <div className="relative hidden overflow-hidden bg-gradient-to-br from-primary/90 via-primary to-primary/70 p-12 text-primary-foreground lg:flex lg:flex-col lg:justify-between">
         <CompanyBrand />
         <div className="max-w-md space-y-4">
-          <h2 className="text-4xl font-semibold leading-tight">
+          <p className="text-4xl font-semibold leading-tight">
             Manage time off with clarity and calm.
-          </h2>
+          </p>
           <p className="text-primary-foreground/80">
             Track requests, approvals, and balances in one enterprise-grade workspace built for
             your entire team.
@@ -58,9 +77,10 @@ function AuthLayout() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
+
 
 function LoginForm({ onForgot }: { onForgot: () => void }) {
   const { signIn } = useAuth();

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /employee
+Disallow: /manager
+Disallow: /hr
+Disallow: /reset-password
+Disallow: /session-expired
+Disallow: /unauthorized
+
+Sitemap: https://tay-pack.lovable.app/sitemap.xml

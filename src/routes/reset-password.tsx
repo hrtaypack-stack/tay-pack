@@ -10,7 +10,27 @@ import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/reset-password")({
   component: ResetPasswordPage,
+  head: () => ({
+    meta: [
+      { title: "Reset password — Leave Management System" },
+      {
+        name: "description",
+        content:
+          "Set a new password for your Leave Management System account and regain secure access to your dashboard.",
+      },
+      { property: "og:title", content: "Reset password — Leave Management System" },
+      {
+        property: "og:description",
+        content:
+          "Set a new password for your Leave Management System account and regain secure access to your dashboard.",
+      },
+      { property: "og:url", content: "https://tay-pack.lovable.app/reset-password" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [{ rel: "canonical", href: "https://tay-pack.lovable.app/reset-password" }],
+  }),
 });
+
 
 function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -44,7 +64,8 @@ function ResetPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-accent/30 p-6">
+    <main className="flex min-h-screen items-center justify-center bg-accent/30 p-6">
+
       <div className="w-full max-w-md rounded-2xl bg-card p-8 shadow-[var(--shadow-card)] ring-1 ring-border">
         <div className="mb-6">
           <CompanyBrand />
@@ -92,6 +113,7 @@ function ResetPasswordPage() {
           </Button>
         </form>
       </div>
-    </div>
+    </main>
+
   );
 }

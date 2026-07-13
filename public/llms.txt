@@ -1,0 +1,10 @@
+# Leave Management System
+
+> An enterprise leave management system for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.
+
+The application is access-controlled. Accounts are provisioned by administrators; there is no public sign-up.
+
+## Pages
+
+- [Home](/): Entry point that routes signed-in users to their role dashboard.
+- [Sign in](/auth): Authentication page for provisioned accounts.
