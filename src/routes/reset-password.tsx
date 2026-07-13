@@ -113,6 +113,7 @@ function ResetPasswordPage() {
           </Button>
         </form>
       </div>
-    </div>
+    </main>
+
   );
 }
