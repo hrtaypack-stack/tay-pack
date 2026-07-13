@@ -50,11 +50,10 @@ function AuthLayout() {
         <CompanyBrand />
         <div className="max-w-md space-y-4">
           <p className="text-4xl font-semibold leading-tight">
-            Manage time off with clarity and calm.
+            Welcome to Tay Pack Leave Management.
           </p>
           <p className="text-primary-foreground/80">
-            Track requests, approvals, and balances in one enterprise-grade workspace built for
-            your entire team.
+            The official leave management platform for Tay Pack employees.
           </p>
         </div>
         <p className="text-sm text-primary-foreground/70">
