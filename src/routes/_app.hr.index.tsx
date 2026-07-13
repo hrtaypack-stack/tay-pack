@@ -26,7 +26,27 @@ import { format } from "date-fns";
 
 export const Route = createFileRoute("/_app/hr/")({
   component: HRDashboard,
+  head: () => ({
+    meta: [
+      { title: "HR Dashboard — Leave Management System" },
+      {
+        name: "description",
+        content:
+          "Company-wide leave metrics, employee counts, and administrative oversight for HR teams in the Leave Management System.",
+      },
+      { property: "og:title", content: "HR Dashboard — Leave Management System" },
+      {
+        property: "og:description",
+        content:
+          "Company-wide leave metrics, employee counts, and administrative oversight for HR teams in the Leave Management System.",
+      },
+      { property: "og:url", content: "https://tay-pack.lovable.app/hr" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [{ rel: "canonical", href: "https://tay-pack.lovable.app/hr" }],
+  }),
 });
+
 
 function HRDashboard() {
   const { data: profiles, isLoading: loadingProfiles } = useQuery({

@@ -18,7 +18,27 @@ import { format, startOfDay } from "date-fns";
 
 export const Route = createFileRoute("/_app/manager/")({
   component: ManagerDashboard,
+  head: () => ({
+    meta: [
+      { title: "Manager Dashboard — Leave Management System" },
+      {
+        name: "description",
+        content:
+          "Review your team's pending leave requests, recent approvals, and daily activity from the manager dashboard.",
+      },
+      { property: "og:title", content: "Manager Dashboard — Leave Management System" },
+      {
+        property: "og:description",
+        content:
+          "Review your team's pending leave requests, recent approvals, and daily activity from the manager dashboard.",
+      },
+      { property: "og:url", content: "https://tay-pack.lovable.app/manager" },
+      { name: "robots", content: "noindex" },
+    ],
+    links: [{ rel: "canonical", href: "https://tay-pack.lovable.app/manager" }],
+  }),
 });
+
 
 function ManagerDashboard() {
   const { profile } = useAuth();

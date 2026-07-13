@@ -4,7 +4,26 @@ import { FullscreenLoader } from "@/components/loaders";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Leave Management System" },
+      {
+        name: "description",
+        content:
+          "Enterprise leave management for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.",
+      },
+      { property: "og:title", content: "Leave Management System" },
+      {
+        property: "og:description",
+        content:
+          "Enterprise leave management for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.",
+      },
+      { property: "og:url", content: "https://tay-pack.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://tay-pack.lovable.app/" }],
+  }),
 });
+
 
 function Index() {
   const { loading, profile, profileMissing, user } = useAuth();
