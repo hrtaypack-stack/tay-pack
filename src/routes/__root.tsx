@@ -83,19 +83,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Leave Management System" },
       {
         name: "description",
-        content: "Enterprise leave management",
+        content:
+          "Enterprise leave management for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.",
       },
+      { property: "og:site_name", content: "Leave Management System" },
       { property: "og:title", content: "Leave Management System" },
       {
         property: "og:description",
-        content: "Enterprise leave management",
+        content:
+          "Enterprise leave management for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Leave Management System" },
-      { name: "twitter:description", content: "Enterprise leave management" },
+      {
+        name: "twitter:description",
+        content:
+          "Enterprise leave management for tracking time-off requests, approvals, and balances across employees, managers, and HR teams.",
+      },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d5205c6-b1c7-4ad7-9e39-028e3b40b1be/id-preview-7368a403--57c86ddb-39c5-47db-a45a-1fd2432fa274.lovable.app-1783751860166.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d5205c6-b1c7-4ad7-9e39-028e3b40b1be/id-preview-7368a403--57c86ddb-39c5-47db-a45a-1fd2432fa274.lovable.app-1783751860166.png" },
+
     ],
     links: [
       { rel: "stylesheet", href: appCss },
