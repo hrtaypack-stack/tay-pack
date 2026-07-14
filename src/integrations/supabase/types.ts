@@ -206,7 +206,7 @@ export type Database = {
           email: string
           employee_code?: string | null
           full_name: string
-          id: string
+          id?: string
           is_active?: boolean
           manager_id?: string | null
           role?: string
