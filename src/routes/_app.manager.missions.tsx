@@ -50,7 +50,7 @@ function ManagerMissionsPage() {
   const { profile } = useAuth();
   const qc = useQueryClient();
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState(MISSION_STATUS.PENDING_MANAGER);
+  const [statusFilter, setStatusFilter] = useState<string>(MISSION_STATUS.PENDING_MANAGER);
   const [viewing, setViewing] = useState<MissionRequest | null>(null);
   const [comment, setComment] = useState("");
 

@@ -25,6 +25,7 @@ import { Route as AppManagerIndexRouteImport } from './routes/_app.manager.index
 import { Route as AppHrIndexRouteImport } from './routes/_app.hr.index'
 import { Route as AppEmployeeIndexRouteImport } from './routes/_app.employee.index'
 import { Route as AppManagerPendingRouteImport } from './routes/_app.manager.pending'
+import { Route as AppManagerMissionsRouteImport } from './routes/_app.manager.missions'
 import { Route as AppManagerHistoryRouteImport } from './routes/_app.manager.history'
 import { Route as AppHrSettingsRouteImport } from './routes/_app.hr.settings'
 import { Route as AppHrReportsRouteImport } from './routes/_app.hr.reports'
@@ -117,6 +118,11 @@ const AppManagerPendingRoute = AppManagerPendingRouteImport.update({
   path: '/pending',
   getParentRoute: () => AppManagerRoute,
 } as any)
+const AppManagerMissionsRoute = AppManagerMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppManagerRoute,
+} as any)
 const AppManagerHistoryRoute = AppManagerHistoryRouteImport.update({
   id: '/history',
   path: '/history',
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/missions': typeof AppManagerMissionsRoute
   '/manager/pending': typeof AppManagerPendingRoute
   '/employee/': typeof AppEmployeeIndexRoute
   '/hr/': typeof AppHrIndexRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/missions': typeof AppManagerMissionsRoute
   '/manager/pending': typeof AppManagerPendingRoute
   '/employee': typeof AppEmployeeIndexRoute
   '/hr': typeof AppHrIndexRoute
@@ -259,6 +267,7 @@ export interface FileRoutesById {
   '/_app/hr/reports': typeof AppHrReportsRoute
   '/_app/hr/settings': typeof AppHrSettingsRoute
   '/_app/manager/history': typeof AppManagerHistoryRoute
+  '/_app/manager/missions': typeof AppManagerMissionsRoute
   '/_app/manager/pending': typeof AppManagerPendingRoute
   '/_app/employee/': typeof AppEmployeeIndexRoute
   '/_app/hr/': typeof AppHrIndexRoute
@@ -290,6 +299,7 @@ export interface FileRouteTypes {
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
+    | '/manager/missions'
     | '/manager/pending'
     | '/employee/'
     | '/hr/'
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
+    | '/manager/missions'
     | '/manager/pending'
     | '/employee'
     | '/hr'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '/_app/hr/reports'
     | '/_app/hr/settings'
     | '/_app/manager/history'
+    | '/_app/manager/missions'
     | '/_app/manager/pending'
     | '/_app/employee/'
     | '/_app/hr/'
@@ -476,6 +488,13 @@ declare module '@tanstack/react-router' {
       path: '/pending'
       fullPath: '/manager/pending'
       preLoaderRoute: typeof AppManagerPendingRouteImport
+      parentRoute: typeof AppManagerRoute
+    }
+    '/_app/manager/missions': {
+      id: '/_app/manager/missions'
+      path: '/missions'
+      fullPath: '/manager/missions'
+      preLoaderRoute: typeof AppManagerMissionsRouteImport
       parentRoute: typeof AppManagerRoute
     }
     '/_app/manager/history': {
@@ -611,12 +630,14 @@ const AppHrRouteWithChildren = AppHrRoute._addFileChildren(AppHrRouteChildren)
 
 interface AppManagerRouteChildren {
   AppManagerHistoryRoute: typeof AppManagerHistoryRoute
+  AppManagerMissionsRoute: typeof AppManagerMissionsRoute
   AppManagerPendingRoute: typeof AppManagerPendingRoute
   AppManagerIndexRoute: typeof AppManagerIndexRoute
 }
 
 const AppManagerRouteChildren: AppManagerRouteChildren = {
   AppManagerHistoryRoute: AppManagerHistoryRoute,
+  AppManagerMissionsRoute: AppManagerMissionsRoute,
   AppManagerPendingRoute: AppManagerPendingRoute,
   AppManagerIndexRoute: AppManagerIndexRoute,
 }
