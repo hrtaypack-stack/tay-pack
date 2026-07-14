@@ -114,6 +114,8 @@ function EmployeeDashboard() {
         <StatCard title="Pending" value={isLoading ? "…" : pending} icon={Clock} />
         <StatCard title="Approved" value={isLoading ? "…" : approved} icon={CheckCircle2} />
         <StatCard title="Rejected" value={isLoading ? "…" : rejected} icon={XCircle} />
+        <StatCard title="Mission/Permission Pending" value={missionPending} icon={Clock} />
+        <StatCard title="Mission/Permission Approved" value={missionApproved} icon={CheckCircle2} />
       </div>
 
       <Card className="shadow-[var(--shadow-card)]">
