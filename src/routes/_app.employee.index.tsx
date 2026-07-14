@@ -66,6 +66,23 @@ function EmployeeDashboard() {
     },
   });
 
+  const { data: missions = [] } = useQuery({
+    enabled: !!employeeId,
+    queryKey: ["employee-missions-count", employeeId],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("mission_requests")
+        .select("status")
+        .eq("employee_id", employeeId!);
+      if (error) throw error;
+      return (data ?? []) as Array<{ status: string }>;
+    },
+  });
+  const missionPending = missions.filter(
+    (m) => m.status === "Pending Manager" || m.status === "Pending HR",
+  ).length;
+  const missionApproved = missions.filter((m) => m.status === "Approved").length;
+
   const rows = data ?? [];
   const total = rows.length;
   const pending = rows.filter(
