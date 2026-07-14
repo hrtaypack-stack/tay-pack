@@ -127,7 +127,6 @@ function NewLeavePage() {
             <Input
               id="start"
               type="date"
-              min={today}
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               required
@@ -138,7 +137,7 @@ function NewLeavePage() {
             <Input
               id="end"
               type="date"
-              min={startDate || today}
+              min={startDate || undefined}
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
               required
