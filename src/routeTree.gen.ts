@@ -36,6 +36,7 @@ import { Route as AppHrAuditLogsRouteImport } from './routes/_app.hr.audit-logs'
 import { Route as AppEmployeeNewMissionRouteImport } from './routes/_app.employee.new-mission'
 import { Route as AppEmployeeNewLeaveRouteImport } from './routes/_app.employee.new-leave'
 import { Route as AppEmployeeMyLeavesRouteImport } from './routes/_app.employee.my-leaves'
+import { Route as AppEmployeeMissionsRouteImport } from './routes/_app.employee.missions'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -171,6 +172,11 @@ const AppEmployeeMyLeavesRoute = AppEmployeeMyLeavesRouteImport.update({
   path: '/my-leaves',
   getParentRoute: () => AppEmployeeRoute,
 } as any)
+const AppEmployeeMissionsRoute = AppEmployeeMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/employee': typeof AppEmployeeRouteWithChildren
   '/hr': typeof AppHrRouteWithChildren
   '/manager': typeof AppManagerRouteWithChildren
+  '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/employee/new-mission': typeof AppEmployeeNewMissionRoute
@@ -209,6 +216,7 @@ export interface FileRoutesByTo {
   '/session-expired': typeof SessionExpiredRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/employee/new-mission': typeof AppEmployeeNewMissionRoute
@@ -239,6 +247,7 @@ export interface FileRoutesById {
   '/_app/employee': typeof AppEmployeeRouteWithChildren
   '/_app/hr': typeof AppHrRouteWithChildren
   '/_app/manager': typeof AppManagerRouteWithChildren
+  '/_app/employee/missions': typeof AppEmployeeMissionsRoute
   '/_app/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
   '/_app/employee/new-mission': typeof AppEmployeeNewMissionRoute
@@ -269,6 +278,7 @@ export interface FileRouteTypes {
     | '/employee'
     | '/hr'
     | '/manager'
+    | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
     | '/employee/new-mission'
@@ -294,6 +304,7 @@ export interface FileRouteTypes {
     | '/session-expired'
     | '/sitemap.xml'
     | '/unauthorized'
+    | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
     | '/employee/new-mission'
@@ -323,6 +334,7 @@ export interface FileRouteTypes {
     | '/_app/employee'
     | '/_app/hr'
     | '/_app/manager'
+    | '/_app/employee/missions'
     | '/_app/employee/my-leaves'
     | '/_app/employee/new-leave'
     | '/_app/employee/new-mission'
@@ -543,10 +555,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEmployeeMyLeavesRouteImport
       parentRoute: typeof AppEmployeeRoute
     }
+    '/_app/employee/missions': {
+      id: '/_app/employee/missions'
+      path: '/missions'
+      fullPath: '/employee/missions'
+      preLoaderRoute: typeof AppEmployeeMissionsRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
   }
 }
 
 interface AppEmployeeRouteChildren {
+  AppEmployeeMissionsRoute: typeof AppEmployeeMissionsRoute
   AppEmployeeMyLeavesRoute: typeof AppEmployeeMyLeavesRoute
   AppEmployeeNewLeaveRoute: typeof AppEmployeeNewLeaveRoute
   AppEmployeeNewMissionRoute: typeof AppEmployeeNewMissionRoute
@@ -554,6 +574,7 @@ interface AppEmployeeRouteChildren {
 }
 
 const AppEmployeeRouteChildren: AppEmployeeRouteChildren = {
+  AppEmployeeMissionsRoute: AppEmployeeMissionsRoute,
   AppEmployeeMyLeavesRoute: AppEmployeeMyLeavesRoute,
   AppEmployeeNewLeaveRoute: AppEmployeeNewLeaveRoute,
   AppEmployeeNewMissionRoute: AppEmployeeNewMissionRoute,
