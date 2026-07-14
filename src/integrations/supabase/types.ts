@@ -187,6 +187,88 @@ export type Database = {
         }
         Relationships: []
       }
+      mission_requests: {
+        Row: {
+          created_at: string
+          details: string
+          duration_hours: number
+          employee_id: string
+          end_time: string
+          hr_action_by: string | null
+          hr_action_date: string | null
+          hr_comment: string | null
+          id: string
+          manager_action_by: string | null
+          manager_action_date: string | null
+          manager_comment: string | null
+          request_date: string
+          request_type: string
+          start_time: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          details: string
+          duration_hours: number
+          employee_id: string
+          end_time: string
+          hr_action_by?: string | null
+          hr_action_date?: string | null
+          hr_comment?: string | null
+          id?: string
+          manager_action_by?: string | null
+          manager_action_date?: string | null
+          manager_comment?: string | null
+          request_date: string
+          request_type: string
+          start_time: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          details?: string
+          duration_hours?: number
+          employee_id?: string
+          end_time?: string
+          hr_action_by?: string | null
+          hr_action_date?: string | null
+          hr_comment?: string | null
+          id?: string
+          manager_action_by?: string | null
+          manager_action_date?: string | null
+          manager_comment?: string | null
+          request_date?: string
+          request_type?: string
+          start_time?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mission_requests_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mission_requests_hr_action_by_fkey"
+            columns: ["hr_action_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mission_requests_manager_action_by_fkey"
+            columns: ["manager_action_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
