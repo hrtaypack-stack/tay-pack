@@ -29,6 +29,7 @@ import { Route as AppManagerMissionsRouteImport } from './routes/_app.manager.mi
 import { Route as AppManagerHistoryRouteImport } from './routes/_app.manager.history'
 import { Route as AppHrSettingsRouteImport } from './routes/_app.hr.settings'
 import { Route as AppHrReportsRouteImport } from './routes/_app.hr.reports'
+import { Route as AppHrMissionsRouteImport } from './routes/_app.hr.missions'
 import { Route as AppHrLeaveTypesRouteImport } from './routes/_app.hr.leave-types'
 import { Route as AppHrLeaveRequestsRouteImport } from './routes/_app.hr.leave-requests'
 import { Route as AppHrEmployeesRouteImport } from './routes/_app.hr.employees'
@@ -138,6 +139,11 @@ const AppHrReportsRoute = AppHrReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => AppHrRoute,
 } as any)
+const AppHrMissionsRoute = AppHrMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppHrRoute,
+} as any)
 const AppHrLeaveTypesRoute = AppHrLeaveTypesRouteImport.update({
   id: '/leave-types',
   path: '/leave-types',
@@ -205,6 +211,7 @@ export interface FileRoutesByFullPath {
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/missions': typeof AppHrMissionsRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/missions': typeof AppHrMissionsRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
@@ -264,6 +272,7 @@ export interface FileRoutesById {
   '/_app/hr/employees': typeof AppHrEmployeesRoute
   '/_app/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/_app/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/_app/hr/missions': typeof AppHrMissionsRoute
   '/_app/hr/reports': typeof AppHrReportsRoute
   '/_app/hr/settings': typeof AppHrSettingsRoute
   '/_app/manager/history': typeof AppManagerHistoryRoute
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/hr/employees'
     | '/hr/leave-requests'
     | '/hr/leave-types'
+    | '/hr/missions'
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
@@ -323,6 +333,7 @@ export interface FileRouteTypes {
     | '/hr/employees'
     | '/hr/leave-requests'
     | '/hr/leave-types'
+    | '/hr/missions'
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
@@ -354,6 +365,7 @@ export interface FileRouteTypes {
     | '/_app/hr/employees'
     | '/_app/hr/leave-requests'
     | '/_app/hr/leave-types'
+    | '/_app/hr/missions'
     | '/_app/hr/reports'
     | '/_app/hr/settings'
     | '/_app/manager/history'
@@ -518,6 +530,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHrReportsRouteImport
       parentRoute: typeof AppHrRoute
     }
+    '/_app/hr/missions': {
+      id: '/_app/hr/missions'
+      path: '/missions'
+      fullPath: '/hr/missions'
+      preLoaderRoute: typeof AppHrMissionsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
     '/_app/hr/leave-types': {
       id: '/_app/hr/leave-types'
       path: '/leave-types'
@@ -610,6 +629,7 @@ interface AppHrRouteChildren {
   AppHrEmployeesRoute: typeof AppHrEmployeesRoute
   AppHrLeaveRequestsRoute: typeof AppHrLeaveRequestsRoute
   AppHrLeaveTypesRoute: typeof AppHrLeaveTypesRoute
+  AppHrMissionsRoute: typeof AppHrMissionsRoute
   AppHrReportsRoute: typeof AppHrReportsRoute
   AppHrSettingsRoute: typeof AppHrSettingsRoute
   AppHrIndexRoute: typeof AppHrIndexRoute
@@ -621,6 +641,7 @@ const AppHrRouteChildren: AppHrRouteChildren = {
   AppHrEmployeesRoute: AppHrEmployeesRoute,
   AppHrLeaveRequestsRoute: AppHrLeaveRequestsRoute,
   AppHrLeaveTypesRoute: AppHrLeaveTypesRoute,
+  AppHrMissionsRoute: AppHrMissionsRoute,
   AppHrReportsRoute: AppHrReportsRoute,
   AppHrSettingsRoute: AppHrSettingsRoute,
   AppHrIndexRoute: AppHrIndexRoute,
