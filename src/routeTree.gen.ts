@@ -25,16 +25,20 @@ import { Route as AppManagerIndexRouteImport } from './routes/_app.manager.index
 import { Route as AppHrIndexRouteImport } from './routes/_app.hr.index'
 import { Route as AppEmployeeIndexRouteImport } from './routes/_app.employee.index'
 import { Route as AppManagerPendingRouteImport } from './routes/_app.manager.pending'
+import { Route as AppManagerMissionsRouteImport } from './routes/_app.manager.missions'
 import { Route as AppManagerHistoryRouteImport } from './routes/_app.manager.history'
 import { Route as AppHrSettingsRouteImport } from './routes/_app.hr.settings'
 import { Route as AppHrReportsRouteImport } from './routes/_app.hr.reports'
+import { Route as AppHrMissionsRouteImport } from './routes/_app.hr.missions'
 import { Route as AppHrLeaveTypesRouteImport } from './routes/_app.hr.leave-types'
 import { Route as AppHrLeaveRequestsRouteImport } from './routes/_app.hr.leave-requests'
 import { Route as AppHrEmployeesRouteImport } from './routes/_app.hr.employees'
 import { Route as AppHrDepartmentsRouteImport } from './routes/_app.hr.departments'
 import { Route as AppHrAuditLogsRouteImport } from './routes/_app.hr.audit-logs'
+import { Route as AppEmployeeNewMissionRouteImport } from './routes/_app.employee.new-mission'
 import { Route as AppEmployeeNewLeaveRouteImport } from './routes/_app.employee.new-leave'
 import { Route as AppEmployeeMyLeavesRouteImport } from './routes/_app.employee.my-leaves'
+import { Route as AppEmployeeMissionsRouteImport } from './routes/_app.employee.missions'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -115,6 +119,11 @@ const AppManagerPendingRoute = AppManagerPendingRouteImport.update({
   path: '/pending',
   getParentRoute: () => AppManagerRoute,
 } as any)
+const AppManagerMissionsRoute = AppManagerMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
+  getParentRoute: () => AppManagerRoute,
+} as any)
 const AppManagerHistoryRoute = AppManagerHistoryRouteImport.update({
   id: '/history',
   path: '/history',
@@ -128,6 +137,11 @@ const AppHrSettingsRoute = AppHrSettingsRouteImport.update({
 const AppHrReportsRoute = AppHrReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => AppHrRoute,
+} as any)
+const AppHrMissionsRoute = AppHrMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
   getParentRoute: () => AppHrRoute,
 } as any)
 const AppHrLeaveTypesRoute = AppHrLeaveTypesRouteImport.update({
@@ -155,6 +169,11 @@ const AppHrAuditLogsRoute = AppHrAuditLogsRouteImport.update({
   path: '/audit-logs',
   getParentRoute: () => AppHrRoute,
 } as any)
+const AppEmployeeNewMissionRoute = AppEmployeeNewMissionRouteImport.update({
+  id: '/new-mission',
+  path: '/new-mission',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
 const AppEmployeeNewLeaveRoute = AppEmployeeNewLeaveRouteImport.update({
   id: '/new-leave',
   path: '/new-leave',
@@ -163,6 +182,11 @@ const AppEmployeeNewLeaveRoute = AppEmployeeNewLeaveRouteImport.update({
 const AppEmployeeMyLeavesRoute = AppEmployeeMyLeavesRouteImport.update({
   id: '/my-leaves',
   path: '/my-leaves',
+  getParentRoute: () => AppEmployeeRoute,
+} as any)
+const AppEmployeeMissionsRoute = AppEmployeeMissionsRouteImport.update({
+  id: '/missions',
+  path: '/missions',
   getParentRoute: () => AppEmployeeRoute,
 } as any)
 
@@ -178,16 +202,20 @@ export interface FileRoutesByFullPath {
   '/employee': typeof AppEmployeeRouteWithChildren
   '/hr': typeof AppHrRouteWithChildren
   '/manager': typeof AppManagerRouteWithChildren
+  '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/employee/new-mission': typeof AppEmployeeNewMissionRoute
   '/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/missions': typeof AppHrMissionsRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/missions': typeof AppManagerMissionsRoute
   '/manager/pending': typeof AppManagerPendingRoute
   '/employee/': typeof AppEmployeeIndexRoute
   '/hr/': typeof AppHrIndexRoute
@@ -202,16 +230,20 @@ export interface FileRoutesByTo {
   '/session-expired': typeof SessionExpiredRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/employee/new-mission': typeof AppEmployeeNewMissionRoute
   '/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/hr/departments': typeof AppHrDepartmentsRoute
   '/hr/employees': typeof AppHrEmployeesRoute
   '/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/hr/missions': typeof AppHrMissionsRoute
   '/hr/reports': typeof AppHrReportsRoute
   '/hr/settings': typeof AppHrSettingsRoute
   '/manager/history': typeof AppManagerHistoryRoute
+  '/manager/missions': typeof AppManagerMissionsRoute
   '/manager/pending': typeof AppManagerPendingRoute
   '/employee': typeof AppEmployeeIndexRoute
   '/hr': typeof AppHrIndexRoute
@@ -231,16 +263,20 @@ export interface FileRoutesById {
   '/_app/employee': typeof AppEmployeeRouteWithChildren
   '/_app/hr': typeof AppHrRouteWithChildren
   '/_app/manager': typeof AppManagerRouteWithChildren
+  '/_app/employee/missions': typeof AppEmployeeMissionsRoute
   '/_app/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
+  '/_app/employee/new-mission': typeof AppEmployeeNewMissionRoute
   '/_app/hr/audit-logs': typeof AppHrAuditLogsRoute
   '/_app/hr/departments': typeof AppHrDepartmentsRoute
   '/_app/hr/employees': typeof AppHrEmployeesRoute
   '/_app/hr/leave-requests': typeof AppHrLeaveRequestsRoute
   '/_app/hr/leave-types': typeof AppHrLeaveTypesRoute
+  '/_app/hr/missions': typeof AppHrMissionsRoute
   '/_app/hr/reports': typeof AppHrReportsRoute
   '/_app/hr/settings': typeof AppHrSettingsRoute
   '/_app/manager/history': typeof AppManagerHistoryRoute
+  '/_app/manager/missions': typeof AppManagerMissionsRoute
   '/_app/manager/pending': typeof AppManagerPendingRoute
   '/_app/employee/': typeof AppEmployeeIndexRoute
   '/_app/hr/': typeof AppHrIndexRoute
@@ -260,16 +296,20 @@ export interface FileRouteTypes {
     | '/employee'
     | '/hr'
     | '/manager'
+    | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
+    | '/employee/new-mission'
     | '/hr/audit-logs'
     | '/hr/departments'
     | '/hr/employees'
     | '/hr/leave-requests'
     | '/hr/leave-types'
+    | '/hr/missions'
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
+    | '/manager/missions'
     | '/manager/pending'
     | '/employee/'
     | '/hr/'
@@ -284,16 +324,20 @@ export interface FileRouteTypes {
     | '/session-expired'
     | '/sitemap.xml'
     | '/unauthorized'
+    | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
+    | '/employee/new-mission'
     | '/hr/audit-logs'
     | '/hr/departments'
     | '/hr/employees'
     | '/hr/leave-requests'
     | '/hr/leave-types'
+    | '/hr/missions'
     | '/hr/reports'
     | '/hr/settings'
     | '/manager/history'
+    | '/manager/missions'
     | '/manager/pending'
     | '/employee'
     | '/hr'
@@ -312,16 +356,20 @@ export interface FileRouteTypes {
     | '/_app/employee'
     | '/_app/hr'
     | '/_app/manager'
+    | '/_app/employee/missions'
     | '/_app/employee/my-leaves'
     | '/_app/employee/new-leave'
+    | '/_app/employee/new-mission'
     | '/_app/hr/audit-logs'
     | '/_app/hr/departments'
     | '/_app/hr/employees'
     | '/_app/hr/leave-requests'
     | '/_app/hr/leave-types'
+    | '/_app/hr/missions'
     | '/_app/hr/reports'
     | '/_app/hr/settings'
     | '/_app/manager/history'
+    | '/_app/manager/missions'
     | '/_app/manager/pending'
     | '/_app/employee/'
     | '/_app/hr/'
@@ -454,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppManagerPendingRouteImport
       parentRoute: typeof AppManagerRoute
     }
+    '/_app/manager/missions': {
+      id: '/_app/manager/missions'
+      path: '/missions'
+      fullPath: '/manager/missions'
+      preLoaderRoute: typeof AppManagerMissionsRouteImport
+      parentRoute: typeof AppManagerRoute
+    }
     '/_app/manager/history': {
       id: '/_app/manager/history'
       path: '/history'
@@ -473,6 +528,13 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/hr/reports'
       preLoaderRoute: typeof AppHrReportsRouteImport
+      parentRoute: typeof AppHrRoute
+    }
+    '/_app/hr/missions': {
+      id: '/_app/hr/missions'
+      path: '/missions'
+      fullPath: '/hr/missions'
+      preLoaderRoute: typeof AppHrMissionsRouteImport
       parentRoute: typeof AppHrRoute
     }
     '/_app/hr/leave-types': {
@@ -510,6 +572,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppHrAuditLogsRouteImport
       parentRoute: typeof AppHrRoute
     }
+    '/_app/employee/new-mission': {
+      id: '/_app/employee/new-mission'
+      path: '/new-mission'
+      fullPath: '/employee/new-mission'
+      preLoaderRoute: typeof AppEmployeeNewMissionRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
     '/_app/employee/new-leave': {
       id: '/_app/employee/new-leave'
       path: '/new-leave'
@@ -524,18 +593,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEmployeeMyLeavesRouteImport
       parentRoute: typeof AppEmployeeRoute
     }
+    '/_app/employee/missions': {
+      id: '/_app/employee/missions'
+      path: '/missions'
+      fullPath: '/employee/missions'
+      preLoaderRoute: typeof AppEmployeeMissionsRouteImport
+      parentRoute: typeof AppEmployeeRoute
+    }
   }
 }
 
 interface AppEmployeeRouteChildren {
+  AppEmployeeMissionsRoute: typeof AppEmployeeMissionsRoute
   AppEmployeeMyLeavesRoute: typeof AppEmployeeMyLeavesRoute
   AppEmployeeNewLeaveRoute: typeof AppEmployeeNewLeaveRoute
+  AppEmployeeNewMissionRoute: typeof AppEmployeeNewMissionRoute
   AppEmployeeIndexRoute: typeof AppEmployeeIndexRoute
 }
 
 const AppEmployeeRouteChildren: AppEmployeeRouteChildren = {
+  AppEmployeeMissionsRoute: AppEmployeeMissionsRoute,
   AppEmployeeMyLeavesRoute: AppEmployeeMyLeavesRoute,
   AppEmployeeNewLeaveRoute: AppEmployeeNewLeaveRoute,
+  AppEmployeeNewMissionRoute: AppEmployeeNewMissionRoute,
   AppEmployeeIndexRoute: AppEmployeeIndexRoute,
 }
 
@@ -549,6 +629,7 @@ interface AppHrRouteChildren {
   AppHrEmployeesRoute: typeof AppHrEmployeesRoute
   AppHrLeaveRequestsRoute: typeof AppHrLeaveRequestsRoute
   AppHrLeaveTypesRoute: typeof AppHrLeaveTypesRoute
+  AppHrMissionsRoute: typeof AppHrMissionsRoute
   AppHrReportsRoute: typeof AppHrReportsRoute
   AppHrSettingsRoute: typeof AppHrSettingsRoute
   AppHrIndexRoute: typeof AppHrIndexRoute
@@ -560,6 +641,7 @@ const AppHrRouteChildren: AppHrRouteChildren = {
   AppHrEmployeesRoute: AppHrEmployeesRoute,
   AppHrLeaveRequestsRoute: AppHrLeaveRequestsRoute,
   AppHrLeaveTypesRoute: AppHrLeaveTypesRoute,
+  AppHrMissionsRoute: AppHrMissionsRoute,
   AppHrReportsRoute: AppHrReportsRoute,
   AppHrSettingsRoute: AppHrSettingsRoute,
   AppHrIndexRoute: AppHrIndexRoute,
@@ -569,12 +651,14 @@ const AppHrRouteWithChildren = AppHrRoute._addFileChildren(AppHrRouteChildren)
 
 interface AppManagerRouteChildren {
   AppManagerHistoryRoute: typeof AppManagerHistoryRoute
+  AppManagerMissionsRoute: typeof AppManagerMissionsRoute
   AppManagerPendingRoute: typeof AppManagerPendingRoute
   AppManagerIndexRoute: typeof AppManagerIndexRoute
 }
 
 const AppManagerRouteChildren: AppManagerRouteChildren = {
   AppManagerHistoryRoute: AppManagerHistoryRoute,
+  AppManagerMissionsRoute: AppManagerMissionsRoute,
   AppManagerPendingRoute: AppManagerPendingRoute,
   AppManagerIndexRoute: AppManagerIndexRoute,
 }
@@ -611,13 +695,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

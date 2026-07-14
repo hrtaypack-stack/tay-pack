@@ -12,6 +12,8 @@ import {
   Settings,
   ClipboardList,
   ScrollText,
+  Briefcase,
+  BriefcaseBusiness,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { UserRole } from "@/hooks/use-auth";
@@ -25,11 +27,14 @@ const NAV: Record<UserRole, NavItem[]> = {
     { title: "Dashboard", url: "/employee", icon: LayoutDashboard },
     { title: "My Leave Requests", url: "/employee/my-leaves", icon: FileText },
     { title: "New Leave Request", url: "/employee/new-leave", icon: PlusCircle },
+    { title: "Mission & Permission", url: "/employee/missions", icon: Briefcase },
+    { title: "New Mission/Permission", url: "/employee/new-mission", icon: PlusCircle },
   ],
   manager: [
     { title: "Dashboard", url: "/manager", icon: LayoutDashboard },
     { title: "Pending Requests", url: "/manager/pending", icon: ClipboardCheck },
     { title: "Leave History", url: "/manager/history", icon: History },
+    { title: "Mission & Permission", url: "/manager/missions", icon: Briefcase },
   ],
   hr: [
     { title: "Dashboard", url: "/hr", icon: LayoutDashboard },
@@ -37,6 +42,7 @@ const NAV: Record<UserRole, NavItem[]> = {
     { title: "Departments", url: "/hr/departments", icon: Building2 },
     { title: "Leave Types", url: "/hr/leave-types", icon: CalendarDays },
     { title: "Leave Requests", url: "/hr/leave-requests", icon: ClipboardList },
+    { title: "Mission & Permission", url: "/hr/missions", icon: BriefcaseBusiness },
     { title: "Reports", url: "/hr/reports", icon: BarChart3 },
     { title: "Audit Logs", url: "/hr/audit-logs", icon: ScrollText },
     { title: "Settings", url: "/hr/settings", icon: Settings },
