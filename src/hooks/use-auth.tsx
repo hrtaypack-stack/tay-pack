@@ -93,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (event === "SIGNED_OUT") {
         setProfile(null);
         setProfileMissing(false);
+        setHasReports(false);
       } else {
         void loadProfile(s?.user ?? null);
       }
