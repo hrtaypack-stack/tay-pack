@@ -20,6 +20,7 @@ interface AuthContextValue {
   session: Session | null;
   profile: AuthProfile | null;
   profileMissing: boolean;
+  hasReports: boolean;
   loading: boolean;
   refreshProfile: () => Promise<void>;
   signIn: (email: string, password: string, remember: boolean) => Promise<void>;
