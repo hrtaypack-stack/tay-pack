@@ -113,6 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session,
     profile,
     profileMissing,
+    hasReports,
     loading,
     refreshProfile: () => loadProfile(user),
     signIn: async (email, password) => {
