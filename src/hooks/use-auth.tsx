@@ -35,6 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<AuthProfile | null>(null);
   const [profileMissing, setProfileMissing] = useState(false);
+  const [hasReports, setHasReports] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const loadProfile = async (u: User | null) => {
