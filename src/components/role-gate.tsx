@@ -21,5 +21,23 @@ function makeGuard(allowed: UserRole) {
 }
 
 export const EmployeeGate = makeGuard("employee");
-export const ManagerGate = makeGuard("manager");
 export const HRGate = makeGuard("hr");
+
+// Manager area: accessible to users with the "manager" role AND to any
+// employee who has one or more direct reports assigned (supervisor).
+export function ManagerGate() {
+  const { profile, hasReports, loading } = useAuth();
+  if (loading) return null;
+  if (!profile) return <Navigate to="/auth" replace />;
+  const canApprove = profile.role === "manager" || hasReports;
+  if (!canApprove) {
+    return (
+      <ErrorState
+        code="403"
+        title="Access denied"
+        message="You don't have permission to view this section."
+      />
+    );
+  }
+  return <Outlet />;
+}

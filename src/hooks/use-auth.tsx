@@ -20,6 +20,7 @@ interface AuthContextValue {
   session: Session | null;
   profile: AuthProfile | null;
   profileMissing: boolean;
+  hasReports: boolean;
   loading: boolean;
   refreshProfile: () => Promise<void>;
   signIn: (email: string, password: string, remember: boolean) => Promise<void>;
@@ -34,12 +35,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<AuthProfile | null>(null);
   const [profileMissing, setProfileMissing] = useState(false);
+  const [hasReports, setHasReports] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const loadProfile = async (u: User | null) => {
     if (!u) {
       setProfile(null);
       setProfileMissing(false);
+      setHasReports(false);
       return;
     }
 
@@ -74,6 +77,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       managerId: data.manager_id,
       isActive: data.is_active,
     });
+
+    const { count } = await supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("manager_id", data.id)
+      .eq("is_active", true);
+    setHasReports((count ?? 0) > 0);
   };
 
   useEffect(() => {
@@ -83,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (event === "SIGNED_OUT") {
         setProfile(null);
         setProfileMissing(false);
+        setHasReports(false);
       } else {
         void loadProfile(s?.user ?? null);
       }
@@ -103,6 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session,
     profile,
     profileMissing,
+    hasReports,
     loading,
     refreshProfile: () => loadProfile(user),
     signIn: async (email, password) => {

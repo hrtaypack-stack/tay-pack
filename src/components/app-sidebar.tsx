@@ -51,15 +51,26 @@ const NAV: Record<UserRole, NavItem[]> = {
 
 export function AppSidebar({
   role,
+  hasReports = false,
   open,
   onNavigate,
 }: {
   role: UserRole;
+  hasReports?: boolean;
   open: boolean;
   onNavigate?: () => void;
 }) {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
-  const items = NAV[role];
+  const baseItems = NAV[role];
+  const approvalItems: NavItem[] =
+    role === "employee" && hasReports
+      ? [
+          { title: "Pending Approvals", url: "/manager/pending", icon: ClipboardCheck },
+          { title: "Team History", url: "/manager/history", icon: History },
+          { title: "Team Missions", url: "/manager/missions", icon: Briefcase },
+        ]
+      : [];
+  const items = [...baseItems, ...approvalItems];
 
   return (
     <aside

@@ -356,8 +356,9 @@ function EmployeeEditDialog({
   });
 
   const managerOptions = employees.filter(
-    (e) => e.id !== employee?.id && (e.role === "manager" || e.role === "hr"),
+    (e) => e.id !== employee?.id && e.is_active,
   );
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
