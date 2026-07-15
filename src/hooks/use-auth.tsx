@@ -42,6 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!u) {
       setProfile(null);
       setProfileMissing(false);
+      setHasReports(false);
       return;
     }
 
