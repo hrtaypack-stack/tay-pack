@@ -41,7 +41,7 @@ function NoProfileScreen() {
 }
 
 function AppLayout() {
-  const { loading, profile, profileMissing, user } = useAuth();
+  const { loading, profile, profileMissing, user, hasReports } = useAuth();
   const settings = useSettings();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -54,6 +54,7 @@ function AppLayout() {
       <div className="flex min-h-screen">
         <AppSidebar
           role={profile.role as UserRole}
+          hasReports={hasReports}
           open={sidebarOpen}
           onNavigate={() => setSidebarOpen(false)}
         />
