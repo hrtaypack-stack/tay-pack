@@ -77,6 +77,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       managerId: data.manager_id,
       isActive: data.is_active,
     });
+
+    const { count } = await supabase
+      .from("profiles")
+      .select("id", { count: "exact", head: true })
+      .eq("manager_id", data.id)
+      .eq("is_active", true);
+    setHasReports((count ?? 0) > 0);
   };
 
   useEffect(() => {
