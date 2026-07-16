@@ -18,6 +18,7 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as R500RouteImport } from './routes/500'
 import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppNotificationsRouteImport } from './routes/_app.notifications'
 import { Route as AppManagerRouteImport } from './routes/_app.manager'
 import { Route as AppHrRouteImport } from './routes/_app.hr'
 import { Route as AppEmployeeRouteImport } from './routes/_app.employee'
@@ -83,6 +84,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppManagerRoute = AppManagerRouteImport.update({
   id: '/manager',
@@ -202,6 +208,7 @@ export interface FileRoutesByFullPath {
   '/employee': typeof AppEmployeeRouteWithChildren
   '/hr': typeof AppHrRouteWithChildren
   '/manager': typeof AppManagerRouteWithChildren
+  '/notifications': typeof AppNotificationsRoute
   '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
@@ -230,6 +237,7 @@ export interface FileRoutesByTo {
   '/session-expired': typeof SessionExpiredRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/notifications': typeof AppNotificationsRoute
   '/employee/missions': typeof AppEmployeeMissionsRoute
   '/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/employee/new-leave': typeof AppEmployeeNewLeaveRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/_app/employee': typeof AppEmployeeRouteWithChildren
   '/_app/hr': typeof AppHrRouteWithChildren
   '/_app/manager': typeof AppManagerRouteWithChildren
+  '/_app/notifications': typeof AppNotificationsRoute
   '/_app/employee/missions': typeof AppEmployeeMissionsRoute
   '/_app/employee/my-leaves': typeof AppEmployeeMyLeavesRoute
   '/_app/employee/new-leave': typeof AppEmployeeNewLeaveRoute
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/employee'
     | '/hr'
     | '/manager'
+    | '/notifications'
     | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
@@ -324,6 +334,7 @@ export interface FileRouteTypes {
     | '/session-expired'
     | '/sitemap.xml'
     | '/unauthorized'
+    | '/notifications'
     | '/employee/missions'
     | '/employee/my-leaves'
     | '/employee/new-leave'
@@ -356,6 +367,7 @@ export interface FileRouteTypes {
     | '/_app/employee'
     | '/_app/hr'
     | '/_app/manager'
+    | '/_app/notifications'
     | '/_app/employee/missions'
     | '/_app/employee/my-leaves'
     | '/_app/employee/new-leave'
@@ -452,6 +464,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/notifications': {
+      id: '/_app/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/manager': {
       id: '/_app/manager'
@@ -671,12 +690,14 @@ interface AppRouteChildren {
   AppEmployeeRoute: typeof AppEmployeeRouteWithChildren
   AppHrRoute: typeof AppHrRouteWithChildren
   AppManagerRoute: typeof AppManagerRouteWithChildren
+  AppNotificationsRoute: typeof AppNotificationsRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppEmployeeRoute: AppEmployeeRouteWithChildren,
   AppHrRoute: AppHrRouteWithChildren,
   AppManagerRoute: AppManagerRouteWithChildren,
+  AppNotificationsRoute: AppNotificationsRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
@@ -695,13 +716,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

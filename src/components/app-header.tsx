@@ -1,5 +1,6 @@
 import { useNavigate, useRouterState } from "@tanstack/react-router";
-import { Bell, LogOut, Menu, User as UserIcon } from "lucide-react";
+import { LogOut, Menu, User as UserIcon } from "lucide-react";
+import { NotificationBell } from "@/components/notification-bell";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -89,10 +90,7 @@ export function AppHeader({
       </nav>
       <div className="flex-1 lg:hidden" />
 
-      <Button variant="ghost" size="icon" aria-label="Notifications" className="relative">
-        <Bell className="h-5 w-5" />
-        <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-primary" />
-      </Button>
+      <NotificationBell />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
